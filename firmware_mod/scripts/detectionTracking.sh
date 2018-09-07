@@ -13,7 +13,11 @@
 #           +--------------------------------------+
 
 STEPS=100
-FILECAMERAPOS=/tmp/cameraposition
+FILECAMERAPOS=/system/sdcard/cameraposition
+if [ -f ${FILECAMERAPOS} ]; then
+        echo "File $FILECAMERAPOS exists"
+   else
+        echo -n "" > ${FILECAMERAPOS}
 
 motorLeft(){
       /system/sdcard/bin/motor -d l -s ${1}
@@ -40,7 +44,7 @@ backtoOrigin() {
 	    origin_y_axis=`grep "y:" ${FILECAMERAPOS} | sed "s/y: //"`
     else
 	    origin_x_axis=0
-        origin_y_axis=0
+            origin_y_axis=0
     fi
 
     # Get the current position
